@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
+import NoteState from './context/notes/NoteState';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -15,6 +16,7 @@ import {
 function App() {
   return (
     <>
+    <NoteState>
     <Router>
     <Navbar/>
       <Routes>
@@ -25,6 +27,7 @@ function App() {
 
       </Routes>
     </Router>
+    </NoteState>
    
     
     </>

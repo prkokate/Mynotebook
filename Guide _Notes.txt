@@ -1,0 +1,10 @@
+1) How to run Backend (with nodemon) and front-end react(with npm run start) simultaneously?
+    -> Make changes in package.json Debug settings under "scripts"
+       the "scripts" holds set of commands that are run and recognized by the directory
+       
+       ADD A COMMAND : "both" : "concurrently \"npm run start\" \"npx nodemon backend/index.js\""
+       into the "scripts" key. Runs both the written commands concurrently!
+
+       RUN COMMAND : "npm run both"  int the terminal to start both backend and frontend!
+
+       (NOTE : Also install "npm i react-router-dom concurrently" instead of just 'react-router-dom') 
