@@ -30,7 +30,13 @@ export default function Addnote() {
         <div className="mb-3 row">
       <label htmlFor="description" className="col-sm-2 col-form-label">Description</label>
       <div className="col-sm-10">
-        <input type="text" onChange={handlechange} className="form-control" name="description" id="description"/>
+        <input type="text" onChange={handlechange} className="form-control" placeholder='write your note here' name="description" id="description"/>
+      </div>
+        </div>
+        <div className="mb-3 row">
+      <label htmlFor="tag" className="col-sm-2 col-form-label">Tag</label>
+      <div className="col-sm-10">
+        <input type="text" onChange={handlechange} placeholder='Add a tag' className="form-control" name="tag" id="tag"/>
       </div>
         </div>
       
