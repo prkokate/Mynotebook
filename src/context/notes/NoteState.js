@@ -23,7 +23,7 @@ const NoteState=(props)=>{
         })
         const json =await response.json();
         setnotes(json);
-        console.log(json);
+        
     }
 
     const addnote= async({title,description,tag})=>{
@@ -38,19 +38,7 @@ const NoteState=(props)=>{
             body : JSON.stringify({title,description,tag})
         })
         const json = await response.json();
-        console.log("Add :",json )
-        const note={
-            "_id": json._id
-            ,
-            "user":  json.user
-            ,
-            "title": json.title,
-            "description": json.description,
-            "tag": json.tag,
-            "date":  json.date
-            ,
-            "__v": 0
-          }
+        const note=json;
 
          setnotes(notes.concat(note));
     }
@@ -79,10 +67,7 @@ const NoteState=(props)=>{
             body : JSON.stringify({title,description,tag})
         })
         const json=await response.json();
-       // console.log(json)
-
-      // setenote({id:id,etitle:title,edescription:description,etag:tag});
-
+       
         
         const newNotes=notes;
          newNotes.forEach((note)=>{

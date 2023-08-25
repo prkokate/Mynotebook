@@ -25,6 +25,8 @@ router.post('/createuser',[
     //Validators using external 'express-validator' package
 ],async (req,res)=>{
     
+    let success=false;
+
     //If validation fails,give some response
     const errors=validationResult(req);
     if(!errors.isEmpty()){
@@ -37,7 +39,7 @@ router.post('/createuser',[
     let user = await User.findOne({email:req.body.email});
     
     if(user){
-        return res.status(400).json({error : "A user with this email id already exists!"})
+        return res.status(400).json({success,error : "A user with this email id already exists!"})
     }
 
     //FUNCTIONS USED FOR PASSWORD HASHING!
@@ -66,12 +68,14 @@ router.post('/createuser',[
     console.log(jwtData);
     
     //Some response to be sent after succesfull creation
-    res.json({"status":"User created succesfully!"});
+    success=true;
+    res.json({success,"status":"User created succesfully!"});
     // res.json(user);
 }
 catch(error){
     console.log(error);
-    res.status(500).send("Some error occurred!");
+    success=false;
+    res.status(500).send(success,"Some error occurred!");
 }
 
 
@@ -98,6 +102,8 @@ router.post('/login',[
     body('password','Please enter a valid password').exists()
     //Validators using external 'express-validator' package
 ],async (req,res)=>{
+
+    let success=false;
     
     //If validation fails,give some response
     const errors=validationResult(req);
@@ -112,7 +118,7 @@ router.post('/login',[
     let user= await User.findOne({email});
 
     if(!user){
-        return res.status(400).json({error : `No user with email Id '${email}' exists!`});
+        return res.status(400).json({success,error : `No user with email Id '${email}' exists!`});
     }
 
    // .compare() generates a hash key for submitted password and compares 
@@ -120,7 +126,7 @@ router.post('/login',[
    let passwordCompare=await bcrypt.compare(password,user.password); //returns true or false
    
    if(!passwordCompare){
-    return res.status(400).json({error : `Please login with correct credentials`});
+    return res.status(400).json({success,error : `Please login with correct credentials`});
    }
 
    const data={
@@ -130,11 +136,13 @@ router.post('/login',[
    }
 
    const authtoken=jwt.sign(data, JWT_SECRET);
-   res.json({Token:authtoken});
+   success=true;
+   res.json({success,Token:authtoken});
    
 }
 catch(error){
     console.log(error);
+    success=false;
     res.status(400).send("Some error occurred!, Please try again");
 }
 
