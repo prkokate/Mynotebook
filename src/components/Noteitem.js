@@ -5,7 +5,7 @@ import noteContext from '../context/notes/noteContext';
 export default function Noteitem(props) {
    
     const {note,update}=props;
-    const {deletenote,editnote}=useContext(noteContext);
+    const {deletenote}=useContext(noteContext);
 
 
   return (

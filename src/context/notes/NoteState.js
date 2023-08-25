@@ -11,6 +11,7 @@ const NoteState=(props)=>{
     const noteInitial =[]
 
     const [notes,setnotes]=useState(noteInitial);
+    const [enote,setenote]=useState({id:"",etitle:"",edescription:"",etag:""});
 
     const fetchNotes = async()=>{
         const response =await fetch(`${host}/api/notes/fetchallnotes`,{
@@ -68,36 +69,35 @@ const NoteState=(props)=>{
       setnotes(newNote);
     }
 
-    const editnote= async (id,title,description)=>{
+    const editnote= async (id,title,description,tag)=>{
         const response =await fetch(`${host}/api/notes/updatenote/${id}`,{
-            method: 'POST',
+            method: 'PUT',
             headers:{
                 'Content-Type' :'application/json',
                 'auth-token': token
             },
-            body : JSON.stringify({title,description})
+            body : JSON.stringify({title,description,tag})
         })
         const json=await response.json();
        // console.log(json)
 
+      // setenote({id:id,etitle:title,edescription:description,etag:tag});
+
         
         const newNotes=notes;
          newNotes.forEach((note)=>{
-            console.log(note._id)
             if(note._id===id){
-              
-                note._id=id;
+                setenote({id:note._id,etitle:title,edescription:description,etag:tag});
+               // note._id=id;
                 note.title=title;
-                console.log( note.title);
                 note.description=description; 
+                console.log("Edited title : ", note.title);
+                return;
             }
         })
         setnotes(newNotes);
-        notes.forEach((note)=>{
-            console.log(note.title);
-        });
-       // console.log("Edited note");
-
+     
+       
 
 
     }
