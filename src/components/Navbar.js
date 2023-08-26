@@ -1,15 +1,24 @@
 import React,{useEffect} from 'react'
-import {Link,useLocation} from "react-router-dom";
+import {Link,useLocation, useNavigate} from "react-router-dom";
+import Alert from './Alert';
   
 
-export default function Navbar() {
+export default function Navbar(props) {
+   const {Alert}=props;
     let location = useLocation();
+    const navigateTo=useNavigate();
     // useEffect(() => {
     //     console.log(location.pathname)
     //   }, [location]);
+
+    const handleLogout=()=>{
+       localStorage.removeItem('token');
+       navigateTo('/');
+       Alert("You have been logged out!","danger")
+    }
   return (
-    <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
-  <div className="container-fluid">
+    <nav style={{position:"fixed",width:"100%"}} className="navbar navbar-expand-lg  navbar-dark bg-dark">
+  <div  className="container-fluid">
     <Link className="navbar-brand" to="/home">Navbar</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="/navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
@@ -37,10 +46,10 @@ export default function Navbar() {
           <a className="nav-link disabled" to='/' aria-disabled="true">Disabled</a>
         </li> */}
       </ul>
-      <form className="d-flex" role="search">
+      {!localStorage.getItem('token')?<form className="d-flex" role="search">
         <Link className='btn btn-primary mx-2' to="/login" >Login</Link>
         <Link className='btn btn-primary mx-2' to="/signup" >Sign up</Link>
-      </form>
+      </form> : <button onClick={handleLogout} className='btn btn-danger mx-3'>Logout</button>}
     </div>
   </div>
 </nav>

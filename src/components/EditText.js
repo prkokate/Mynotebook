@@ -3,7 +3,7 @@ import noteContext from '../context/notes/noteContext';
 
 export default function EditText(props) {
 
-  const {Enote}=props;
+  const {Enote,Alert}=props;
   const [enote,setenote]=useState({etitle:Enote.title,edescription:Enote.description,etag:Enote.tag});
     
   const {editnote}=useContext(noteContext);
@@ -16,6 +16,7 @@ export default function EditText(props) {
   const updateNote=(e)=>{
     e.preventDefault();
     editnote(Enote._id,enote.etitle,enote.edescription,enote.etag);
+    Alert("Note Edited succesfully","success");
   }
 
   return (
@@ -39,13 +40,13 @@ export default function EditText(props) {
       <div className="mb-3 row">
       <label htmlFor="etitle" className="col-sm-2 col-form-label">Title</label>
       <div className="col-sm-10">
-      <input type="text" onChange={handlechange} className="form-control"  name="etitle" id="etitle " value={enote.etitle} placeholder="Enter note title"/>
+      <input type="text" style={enote.etitle.trim().length>=5?{background:"#A8DF8E"}:{background:"#ECCDB4"}} onChange={handlechange} className="form-control"  name="etitle" id="etitle " value={enote.etitle} placeholder="Enter note title"/>
       </div>
         </div>
         <div className="mb-3 row">
       <label htmlFor="edescription" className="col-sm-2 col-form-label">Description</label>
       <div className="col-sm-10">
-        <input type="text" onChange={handlechange} className="form-control" placeholder='write your note here' name="edescription" id="edescription"/>
+        <input type="text" style={enote.etitle.trim().length>=5?{background:"#A8DF8E"}:{background:"#ECCDB4"}} onChange={handlechange} className="form-control" placeholder='write your note here' name="edescription" id="edescription"/>
       </div>
         </div>
         <div className="mb-3 row">
@@ -58,7 +59,7 @@ export default function EditText(props) {
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={updateNote}>Save changes</button>
+        <button  disabled={enote.etitle.trim().length<5 || enote.edescription.trim().length<5}  type="button"  className="btn btn-primary" data-bs-dismiss="modal" onClick={updateNote}>Save changes</button>
       </div>
     </form>
     </div>

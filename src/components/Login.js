@@ -55,6 +55,7 @@ export default function Login(props) {
 
 
     <div className='container my-5' >
+        <h1>Login to your Notebook</h1>
         <br /><br /><br />
       <form onSubmit={newLogin}  className="my-5">
       <div className="mb-3 row">

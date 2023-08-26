@@ -25,14 +25,14 @@ function App() {
 
       setTimeout(()=>{
         setalrt({msg:"",type:"primary",disp:"none"});
-      },2500);
+      },3000);
   }
 
   return (
     <>
     <NoteState>
     <Router>
-    <Navbar/>
+    <Navbar Alert={giveAlert} />
     <Alert  alert={alrt} />
     <br /><br /><br />
       <Routes>
