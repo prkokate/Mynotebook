@@ -26,6 +26,7 @@ function App() {
       setTimeout(()=>{
         setalrt({msg:"",type:"primary",disp:"none"});
       },3000);
+    
   }
 
   return (
