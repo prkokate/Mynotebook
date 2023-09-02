@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb+srv://prkokate10:Rajsheet1510@cluster0.xsshhjl.mongodb.net/Mynotebook";
+const mongoURI = "";
+//Add mongodb string while deploying
 
 const connectToMongo=()=>{
     mongoose.connect(mongoURI).then(()=>{
